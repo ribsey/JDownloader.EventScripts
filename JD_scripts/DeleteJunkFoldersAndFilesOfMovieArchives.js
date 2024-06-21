@@ -161,6 +161,16 @@ function import_file(path) {
         path +
         '","importMode":"Move"}'
     );
+  } else {
+    parentName = path.getParent().getName();
+    if (isTvShow(parentName) || isTvShow(isMovie)) {
+      extension = path.getExtension();
+      newFileName = parentName + "." + extension;
+      push_message("renaming " + path.getName() + "to " + newFileName);
+      path = path.renameName(newFileName);
+
+      import_file(path);
+    }
   }
 }
 
