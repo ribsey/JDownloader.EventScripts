@@ -57,17 +57,13 @@ function handle_movie(allFiles) {
     var junkFile = reNames.test(fileName); // name including ...
     var junkType = !reTypes.test(extension); // type NOT including ...
 
-    push_message(folderName + " - " + fileName + " - " + extension);
-
     if (junkFolder) {
       if (folder.exists()) {
-        push_message("deleting folder: " + folder);
         folder.deleteRecursive();
       }
     }
     if (junkFile || junkType) {
       if (file.exists()) {
-        push_message("deleting file: " + file);
         file.delete();
       }
     }
