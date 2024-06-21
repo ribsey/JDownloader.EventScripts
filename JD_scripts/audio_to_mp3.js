@@ -1,3 +1,11 @@
+var jd_meta_data = {
+  eventTrigger: "ON_DOWNLOAD_CONTROLLER_STOPPED",
+  eventTriggerSettings: { isSynchronous: false },
+  id: 1618393886191,
+  name: "convert audio to mp3",
+  enabled: false,
+};
+
 // Convert aac/m4a/ogg files to mp3.
 // Trigger required: "A Download Stopped".
 // Requires ffmpeg/ffprobe. Uses JD ffmpeg/ffprobe settings if available.
