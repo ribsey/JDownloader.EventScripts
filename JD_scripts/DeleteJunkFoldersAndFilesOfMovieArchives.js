@@ -33,11 +33,15 @@ browser.setHeader("Accept", "application/json");
 
 var extractedFiles = archive.getExtractedFilePaths();
 
+try {
 for (i = 0; i < extractedFiles.length; i++) {
   if (reTypes.test(extractedFiles[i].getExtension())) {
     handle_movie(extractedFiles);
     break;
   }
+  }
+} catch (error) {
+  alert(error);
 }
 
 function handle_movie(allFiles) {
