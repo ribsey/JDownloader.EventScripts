@@ -15,6 +15,7 @@ var junkNames = ["sample", "proof"];
 var accpetedTypes = ["mkv", "avi", "mp4", "srt"];
 
 const LOG_ENABLED = false;
+const PUSH_ENABLED = false;
 
 // Define your API endpoint and parameters
 var sonarrHost = "http://localhost:8989";
@@ -177,6 +178,10 @@ function import_file(path) {
 }
 
 function push_message(message) {
+  if (!PUSH_ENABLED) {
+    return;
+  }
+
   var push = getBrowser();
   push.postPage(
     "https://myjd.link/push",
