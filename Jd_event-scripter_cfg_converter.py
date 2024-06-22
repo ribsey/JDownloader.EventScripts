@@ -70,7 +70,7 @@ def create_js_data(script):
 
 def dest_file_exists(path):
     dirname = os.path.dirname(path)
-    if not os.path.exists(dirname) and os.path.isdir(dirname):
+    if dirname and not os.path.exists(dirname):
         os.makedirs(dirname, exist_ok=True)
 
     if os.path.exists(path):
@@ -130,10 +130,10 @@ def main():
         input_file = args.input_file
         output_path = args.output_path
 
-        if os.path.splitext(input_file)[1] == '.json':
-            handle_json_file(input_file, output_path)
-        elif os.path.isdir(input_file):
+        if os.path.isdir(input_file):
             handle_js_files(input_file, output_path)
+        elif os.path.splitext(input_file)[1] == '.json':
+            handle_json_file(input_file, output_path)
     except FileNotFoundError:
         print(f"Error: File '{input_file}' not found.")
 
