@@ -149,7 +149,7 @@ function isMovie(name) {
 }
 
 function importEpisode(path) {
-    result = browser.postPage(
+  var result = browser.postPage(
       sonarrHost + "/api/v3/command",
       '{"name": "DownloadEdepisodesScan","path": "' +
         path +
@@ -158,7 +158,7 @@ function importEpisode(path) {
 }
 
 function importMovie(path) {
-    result = browser.postPage(
+  var result = browser.postPage(
       radarrHost + "/api/v3/command",
       '{"name": "DownloadedMoviesScan","path": "' +
         path +
