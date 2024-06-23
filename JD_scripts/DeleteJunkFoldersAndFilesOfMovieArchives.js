@@ -14,16 +14,17 @@ disablePermissionChecks();
 var junkNames = ["sample", "proof"];
 var accpetedTypes = ["mkv", "avi", "mp4", "srt"];
 
+//! CONFIG START
 const LOG_ENABLED = false;
 const PUSH_ENABLED = false;
 
-// Define your API endpoint and parameters
 var sonarrHost = "http://localhost:8989";
 var sonarrApiKey = "API-KEY";
 var radarrHost = "http://localhost:7878";
 var radarrApiKey = "API-KEY";
 
-var pushUserId = "MY-JD-PUSH-USER-ID"; // If you uninstall MyJD Remote your user ID will change
+var pushUserId = "MY-JD-PUSH-USER-ID";
+//! CONFIG END
 
 var reNames = new RegExp(createRegexStr(junkNames), "i"); // junk names
 var reTypes = new RegExp(createRegexStr(accpetedTypes) + "$", "i"); // legitimate file types
@@ -147,25 +148,33 @@ function isMovie(name) {
   return parsingResult.hasOwnProperty("movie");
 }
 
-function import_file(path) {
-  if (isTvShow(path.getName())) {
-    push_message("importing tv show: " + path.getName());
-
+function importEpisode(path) {
     result = browser.postPage(
       sonarrHost + "/api/v3/command",
       '{"name": "DownloadEdepisodesScan","path": "' +
         path +
         '","importMode":"Move"}'
     );
-  } else if (isMovie(path.getName())) {
-    push_message("importing movie: " + path.getName());
+}
 
+function importMovie(path) {
     result = browser.postPage(
       radarrHost + "/api/v3/command",
       '{"name": "DownloadedMoviesScan","path": "' +
         path +
         '","importMode":"Move"}'
     );
+}
+
+function import_file(path) {
+  if (isTvShow(path.getName())) {
+    push_message("importing tv show: " + path.getName());
+
+    importEpisode(path);
+  } else if (isMovie(path.getName())) {
+    push_message("importing movie: " + path.getName());
+
+    importMovie(path);
   } else {
     parentName = path.getParent().getName();
     if (isTvShow(parentName) || isTvShow(isMovie)) {
