@@ -177,7 +177,7 @@ function import_file(path) {
     importMovie(path);
   } else {
     parentName = path.getParent().getName();
-    if (isTvShow(parentName) || isTvShow(isMovie)) {
+    if (isTvShow(parentName) || isMovie(parentName)) {
       extension = path.getExtension();
       newFileName = parentName + "." + extension;
       push_message(
